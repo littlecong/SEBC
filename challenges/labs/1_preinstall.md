@@ -79,9 +79,17 @@ Journal length:           32768
 Journal sequence:         0x00000120  
 Journal start:            1  
 </pre>
-#Disable transparent hugepage support
-
-#List your network interface configuration
+##Disable transparent hugepage support
+<pre>
+[root@ip-172-31-37-12 mm]# pwd
+/sys/kernel/mm
+[root@ip-172-31-37-12 mm]# ls
+hugepages  ksm
+[root@ip-172-31-37-12 mm]# grep -i HugePages_Total /proc/meminfo 
+HugePages_Total:       0
+</pre>
+So I think the THP has been disabled
+##List your network interface configuration
 <code>[root@ip-172-31-37-12 hugepages-2048kB]# ifconfig
 </code>
 <pre>
@@ -104,4 +112,164 @@ lo        Link encap:Local Loopback
           collisions:0 txqueuelen:0 
           RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)
 </pre>
+##Show that forward and reverse host lookups are correctly resolved
+ip-172-31-37-12 is my Master Host, ip-172-31-40-228 is one of my Slave Hosts 
+<pre>
+[root@ip-172-31-37-12 yum.repos.d]# hostname
+ip-172-31-37-12
+[root@ip-172-31-37-12 yum.repos.d]# nslookup ip-172-31-40-228
+Server:		172.31.0.2
+Address:	172.31.0.2#53
+
+Non-authoritative answer:
+Name:	ip-172-31-40-228.us-west-2.compute.internal
+Address: 172.31.40.228
+</pre>
+##Show the nscd service is running
+<pre>
+[root@ip-172-31-37-12 etc]# service nscd status
+nscd: unrecognized service
+[root@ip-172-31-37-12 etc]# yum install nscd
+Loaded plugins: fastestmirror, presto
+Loading mirror speeds from cached hostfile
+ * base: mirrors.cat.pdx.edu
+ * extras: mirrors.sonic.net
+ * updates: mirror.sjc02.svwh.net
+Setting up Install Process
+Resolving Dependencies
+--> Running transaction check
+---> Package nscd.x86_64 0:2.12-1.209.el6_9.1 will be installed
+--> Processing Dependency: glibc = 2.12-1.209.el6_9.1 for package: nscd-2.12-1.209.el6_9.1.x86_64
+--> Running transaction check
+---> Package glibc.x86_64 0:2.12-1.132.el6 will be updated
+--> Processing Dependency: glibc = 2.12-1.132.el6 for package: glibc-common-2.12-1.132.el6.x86_64
+---> Package glibc.x86_64 0:2.12-1.209.el6_9.1 will be an update
+--> Running transaction check
+---> Package glibc-common.x86_64 0:2.12-1.132.el6 will be updated
+---> Package glibc-common.x86_64 0:2.12-1.209.el6_9.1 will be an update
+--> Processing Dependency: tzdata >= 2015g-4 for package: glibc-common-2.12-1.209.el6_9.1.x86_64
+--> Running transaction check
+---> Package tzdata.noarch 0:2013g-1.el6 will be updated
+---> Package tzdata.noarch 0:2017b-1.el6 will be an update
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+===============================================================================================================================================================================================
+ Package                                        Arch                                     Version                                               Repository                                 Size
+===============================================================================================================================================================================================
+Installing:
+ nscd                                           x86_64                                   2.12-1.209.el6_9.1                                    updates                                   232 k
+Updating for dependencies:
+ glibc                                          x86_64                                   2.12-1.209.el6_9.1                                    updates                                   3.8 M
+ glibc-common                                   x86_64                                   2.12-1.209.el6_9.1                                    updates                                    14 M
+ tzdata                                         noarch                                   2017b-1.el6                                           updates                                   455 k
+
+Transaction Summary
+===============================================================================================================================================================================================
+Install       1 Package(s)
+Upgrade       3 Package(s)
+
+Total download size: 19 M
+Is this ok [y/N]: y
+Downloading Packages:
+Setting up and reading Presto delta metadata
+Processing delta metadata
+Package(s) data still to download: 19 M
+(1/4): glibc-2.12-1.209.el6_9.1.x86_64.rpm                                                                                                                              | 3.8 MB     00:00     
+(2/4): glibc-common-2.12-1.209.el6_9.1.x86_64.rpm                                                                                                                       |  14 MB     00:00     
+(3/4): nscd-2.12-1.209.el6_9.1.x86_64.rpm                                                                                                                               | 232 kB     00:00     
+(4/4): tzdata-2017b-1.el6.noarch.rpm                                                                                                                                    | 455 kB     00:00     
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                                                           22 MB/s |  19 MB     00:00     
+Running rpm_check_debug
+Running Transaction Test
+Transaction Test Succeeded
+Running Transaction
+  Updating   : tzdata-2017b-1.el6.noarch                                                                                                                                                   1/7 
+  Updating   : glibc-2.12-1.209.el6_9.1.x86_64                                                                                                                                             2/7 
+  Updating   : glibc-common-2.12-1.209.el6_9.1.x86_64                                                                                                                                      3/7 
+  Installing : nscd-2.12-1.209.el6_9.1.x86_64                                                                                                                                              4/7 
+  Cleanup    : glibc-common-2.12-1.132.el6.x86_64                                                                                                                                          5/7 
+  Cleanup    : glibc-2.12-1.132.el6.x86_64                                                                                                                                                 6/7 
+  Cleanup    : tzdata-2013g-1.el6.noarch                                                                                                                                                   7/7 
+  Verifying  : tzdata-2017b-1.el6.noarch                                                                                                                                                   1/7 
+  Verifying  : nscd-2.12-1.209.el6_9.1.x86_64                                                                                                                                              2/7 
+  Verifying  : glibc-2.12-1.209.el6_9.1.x86_64                                                                                                                                             3/7 
+  Verifying  : glibc-common-2.12-1.209.el6_9.1.x86_64                                                                                                                                      4/7 
+  Verifying  : glibc-2.12-1.132.el6.x86_64                                                                                                                                                 5/7 
+  Verifying  : tzdata-2013g-1.el6.noarch                                                                                                                                                   6/7 
+  Verifying  : glibc-common-2.12-1.132.el6.x86_64                                                                                                                                          7/7 
+
+Installed:
+  nscd.x86_64 0:2.12-1.209.el6_9.1                                                                                                                                                             
+
+Dependency Updated:
+  glibc.x86_64 0:2.12-1.209.el6_9.1                              glibc-common.x86_64 0:2.12-1.209.el6_9.1                              tzdata.noarch 0:2017b-1.el6                             
+
+Complete!
+[root@ip-172-31-37-12 etc]# chkconfig nscd on
+[root@ip-172-31-37-12 etc]# service nscd start
+Starting nscd:                                             [  OK  ]
+</pre>
+##Show the ntpd service is running
+<pre>
+[root@ip-172-31-37-12 etc]# service ntpd status
+ntpd: unrecognized service
+[root@ip-172-31-37-12 etc]# yum install ntp ntpdate
+Loaded plugins: fastestmirror, presto
+Loading mirror speeds from cached hostfile
+ * base: mirrors.cat.pdx.edu
+ * extras: mirrors.sonic.net
+ * updates: mirror.sjc02.svwh.net
+Setting up Install Process
+Resolving Dependencies
+--> Running transaction check
+---> Package ntp.x86_64 0:4.2.6p5-10.el6.centos.2 will be installed
+---> Package ntpdate.x86_64 0:4.2.6p5-10.el6.centos.2 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+===============================================================================================================================================================================================
+ Package                                    Arch                                      Version                                                    Repository                               Size
+===============================================================================================================================================================================================
+Installing:
+ ntp                                        x86_64                                    4.2.6p5-10.el6.centos.2                                    base                                    599 k
+ ntpdate                                    x86_64                                    4.2.6p5-10.el6.centos.2                                    base                                     78 k
+
+Transaction Summary
+===============================================================================================================================================================================================
+Install       2 Package(s)
+
+Total download size: 678 k
+Installed size: 1.8 M
+Is this ok [y/N]: y
+Downloading Packages:
+Setting up and reading Presto delta metadata
+Processing delta metadata
+Package(s) data still to download: 678 k
+(1/2): ntp-4.2.6p5-10.el6.centos.2.x86_64.rpm                                                                                                                           | 599 kB     00:00     
+(2/2): ntpdate-4.2.6p5-10.el6.centos.2.x86_64.rpm                                                                                                                       |  78 kB     00:00     
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                                                          5.2 MB/s | 678 kB     00:00     
+Running rpm_check_debug
+Running Transaction Test
+Transaction Test Succeeded
+Running Transaction
+  Installing : ntpdate-4.2.6p5-10.el6.centos.2.x86_64                                                                                                                                      1/2 
+  Installing : ntp-4.2.6p5-10.el6.centos.2.x86_64                                                                                                                                          2/2 
+  Verifying  : ntp-4.2.6p5-10.el6.centos.2.x86_64                                                                                                                                          1/2 
+  Verifying  : ntpdate-4.2.6p5-10.el6.centos.2.x86_64                                                                                                                                      2/2 
+
+Installed:
+  ntp.x86_64 0:4.2.6p5-10.el6.centos.2                                                         ntpdate.x86_64 0:4.2.6p5-10.el6.centos.2                                                        
+
+Complete!
+[root@ip-172-31-37-12 etc]# chkconfig ntpd on
+[root@ip-172-31-37-12 etc]# service ntpd start
+Starting ntpd:                                             [  OK  ]
+</pre>
+#MySQL/MariaDB Installation Lab
+
 
