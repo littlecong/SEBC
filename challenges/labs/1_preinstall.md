@@ -1,26 +1,34 @@
 #System Configuration Checks
 ##Check vm.swappiness on all your nodes
-<code>
+<pre>
 [root@ip-172-31-37-12 ~]# sysctl vm.swappiness  
 vm.swappiness = 60  
 [root@ip-172-31-37-12 ~]# sysctl -w vm.swappiness=1  
 vm.swappiness = 1
-</code>
+</pre>
 ##Show the mount attributes of your volume(s)
 <code>
-[root@ip-172-31-37-12 ~]# mount  
+[root@ip-172-31-37-12 ~]# mount
+</code>
+<pre>  
 /dev/xvde on / type ext4 (rw)  
 proc on /proc type proc (rw)  
 sysfs on /sys type sysfs (rw)  
 devpts on /dev/pts type devpts (rw,gid=5,mode=620)  
 tmpfs on /dev/shm type tmpfs (rw,rootcontext="system_u:object_r:tmpfs_t:s0")  
 none on /proc/sys/fs/binfmt_misc type binfmt_misc (rw)  
-</code>
+</pre>
 ###It is ext4 file system
 <code>
-[root@ip-172-31-37-12 ~]# dumpe2fs -h /dev/xvde 2> /dev/null | awk -F ':' '{ if($1 == "Reserved block count") { rescnt=$2 } } { if($1 == "Block count") { blkcnt=$2 } } END { print "Reserved blocks: "(rescnt/blkcnt)*100"%" }'  
+[root@ip-172-31-37-12 ~]# dumpe2fs -h /dev/xvde 2> /dev/null | awk -F ':' '{ if($1 == "Reserved block count") { rescnt=$2 } } { if($1 == "Block count") { blkcnt=$2 } } END { print "Reserved blocks: "(rescnt/blkcnt)*100"%" }'
+</code>
+<pre>  
 Reserved blocks: 4.99997%  
-[root@ip-172-31-37-12 ~]# dumpe2fs -h /dev/xvde  
+</pre>
+<code>
+[root@ip-172-31-37-12 ~]# dumpe2fs -h /dev/xvde 
+</code>
+<pre> 
 dumpe2fs 1.41.12 (17-May-2010)  
 Filesystem volume name:   centos_root  
 Last mounted on:          /  
@@ -70,8 +78,9 @@ Journal size:             128M
 Journal length:           32768  
 Journal sequence:         0x00000120  
 Journal start:            1  
-</code>
+</pre>
 #Disable transparent hugepage support
+
 #List your network interface configuration
 <code>[root@ip-172-31-37-12 hugepages-2048kB]# ifconfig
 </code>
@@ -95,3 +104,4 @@ lo        Link encap:Local Loopback
           collisions:0 txqueuelen:0 
           RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)
 </pre>
+
