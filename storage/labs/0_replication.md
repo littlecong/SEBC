@@ -168,6 +168,7 @@ FSCK ended at Tue May 09 06:57:29 UTC 2017 in 2 milliseconds
 The filesystem under path '/littlecong/copyfromteragen' is HEALTHY
 </pre>
 When I distcp from my own cluster to my partner's cluster it fails. Perhaps it is something about network issue 
+So I made a mapping of my public ip to my internal hostname,and sent it to my parter. After the mapping put into /etc/hosts, he can distcp to or from my cluster.
 <pre>
 hadoop distcp hdfs://ip-172-31-37-146.us-west-2.compute.internal/user/littlecong/teragen hdfs://ec2-54-193-126-200.us-west-1.compute.amazonaws.com/littlecong/copyfromgeragen
 17/05/09 05:34:35 INFO tools.DistCp: Input Options: DistCpOptions{atomicCommit=false, syncFolder=false, deleteMissing=false, ignoreFailures=false, overwrite=false, append=false, useDiff=false, useRdiff=false, fromSnapshot=null, toSnapshot=null, skipCRC=false, blocking=true, numListstatusThreads=0, maxMaps=20, mapBandwidth=100, sslConfigurationFile='null', copyStrategy='uniformsize', preserveStatus=[], preserveRawXattrs=false, atomicWorkPath=null, logPath=null, sourceFileListing=null, sourcePaths=[hdfs://ip-172-31-37-146.us-west-2.compute.internal/user/littlecong/teragen], targetPath=hdfs://ec2-54-193-126-200.us-west-1.compute.amazonaws.com/littlecong/copyfromgeragen, targetPathExists=false, filtersFile='null'}
