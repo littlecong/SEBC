@@ -6,6 +6,8 @@ vm.swappiness = 60
 [root@ip-172-31-37-12 ~]# sysctl -w vm.swappiness=1  
 vm.swappiness = 1
 </pre>
+
+
 ##Show the mount attributes of your volume(s)
 <code>
 [root@ip-172-31-37-12 ~]# mount
