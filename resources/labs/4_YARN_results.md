@@ -1,26 +1,59 @@
+The best params should be
+
+```
+map.java.opts.max.heap=1638
+reduce.java.opts.max.heap=1638
+job.maps=4
+map.memory.mb=2048
+job.reduces=4
+reduce.memory.mb=2048
+
+real    1m49.289s
+user    0m6.444s
+sys     0m0.868s
+
+real    3m40.256s
+user    0m8.304s
+sys     0m0.839s
+```
+
+or
+```
+map.java.opts.max.heap=1638
+reduce.java.opts.max.heap=1638
+job.maps=8
+map.memory.mb=2048
+job.reduces=8
+reduce.memory.mb=2048
+
+real    1m50.207s
+user    0m6.141s
+sys     0m0.825s
+
+real    3m29.590s
+user    0m8.621s
+sys     0m0.958s
+
+```
+Here is all the result
+
 ```
 [hdfs@ip-172-31-37-12 ~]$ ./YARNtest.sh 
-Testing loop started on Wed May 10 00:14:34 UTC 2017
-map.java.opts.max.heap=409
-reduce.java.opts.max.heap=409
-job.maps=4
-./YARNtest.sh: line 27: map.memory.mb=${$k}: bad substitution
-Testing loop ended on Wed May 10 00:14:34 UTC 2017
-[hdfs@ip-172-31-37-12 ~]$ ./YARNtest.sh 
-Testing loop started on Wed May 10 00:14:54 UTC 2017
+Testing loop started on Wed May 10 02:30:29 UTC 2017
 map.java.opts.max.heap=409
 reduce.java.opts.max.heap=409
 job.maps=4
 map.memory.mb=512
 job.reduces=4
+reduce.memory.mb=512
 
-real    2m37.408s
-user    0m6.503s
-sys     0m0.755s
+real    2m29.624s
+user    0m6.150s
+sys     0m0.787s
 
-real    2m51.786s
-user    0m8.369s
-sys     0m0.792s
+real    3m18.672s
+user    0m8.010s
+sys     0m0.850s
 Deleted /results/tg-10GB-4-4-512
 Deleted /results/ts-10GB-4-4-512
 map.java.opts.max.heap=819
@@ -28,14 +61,15 @@ reduce.java.opts.max.heap=819
 job.maps=4
 map.memory.mb=1024
 job.reduces=4
+reduce.memory.mb=1024
 
-real    2m14.578s
-user    0m5.848s
-sys     0m0.766s
+real    2m21.638s
+user    0m6.026s
+sys     0m0.777s
 
-real    3m48.844s
-user    0m8.301s
-sys     0m0.840s
+real    3m14.519s
+user    0m8.576s
+sys     0m0.892s
 Deleted /results/tg-10GB-4-4-1024
 Deleted /results/ts-10GB-4-4-1024
 map.java.opts.max.heap=1638
@@ -43,14 +77,15 @@ reduce.java.opts.max.heap=1638
 job.maps=4
 map.memory.mb=2048
 job.reduces=4
+reduce.memory.mb=2048
 
-real    2m10.789s
-user    0m5.963s
-sys     0m0.767s
+real    1m49.289s
+user    0m6.444s
+sys     0m0.868s
 
-real    3m40.208s
-user    0m8.134s
-sys     0m0.820s
+real    3m40.256s
+user    0m8.304s
+sys     0m0.839s
 Deleted /results/tg-10GB-4-4-2048
 Deleted /results/ts-10GB-4-4-2048
 map.java.opts.max.heap=409
@@ -58,14 +93,15 @@ reduce.java.opts.max.heap=409
 job.maps=4
 map.memory.mb=512
 job.reduces=8
+reduce.memory.mb=512
 
-real    2m1.415s
-user    0m5.894s
-sys     0m0.759s
+real    2m57.334s
+user    0m6.106s
+sys     0m0.819s
 
-real    2m56.723s
-user    0m8.220s
-sys     0m0.826s
+real    2m22.252s
+user    0m8.424s
+sys     0m0.891s
 Deleted /results/tg-10GB-4-8-512
 Deleted /results/ts-10GB-4-8-512
 map.java.opts.max.heap=819
@@ -73,14 +109,15 @@ reduce.java.opts.max.heap=819
 job.maps=4
 map.memory.mb=1024
 job.reduces=8
+reduce.memory.mb=1024
 
-real    2m45.161s
-user    0m5.884s
-sys     0m0.745s
+real    2m27.969s
+user    0m5.888s
+sys     0m0.807s
 
-real    2m35.660s
-user    0m8.019s
-sys     0m0.800s
+real    2m43.088s
+user    0m8.158s
+sys     0m0.825s
 Deleted /results/tg-10GB-4-8-1024
 Deleted /results/ts-10GB-4-8-1024
 map.java.opts.max.heap=1638
@@ -88,14 +125,15 @@ reduce.java.opts.max.heap=1638
 job.maps=4
 map.memory.mb=2048
 job.reduces=8
+reduce.memory.mb=2048
 
-real    2m32.412s
-user    0m5.973s
-sys     0m0.795s
+real    2m4.745s
+user    0m6.253s
+sys     0m0.833s
 
-real    3m53.717s
-user    0m8.305s
-sys     0m0.890s
+real    4m11.483s
+user    0m8.530s
+sys     0m0.932s
 Deleted /results/tg-10GB-4-8-2048
 Deleted /results/ts-10GB-4-8-2048
 map.java.opts.max.heap=409
@@ -103,14 +141,15 @@ reduce.java.opts.max.heap=409
 job.maps=8
 map.memory.mb=512
 job.reduces=4
+reduce.memory.mb=512
 
-real    2m22.784s
-user    0m6.333s
-sys     0m0.783s
+real    2m30.099s
+user    0m6.369s
+sys     0m0.757s
 
-real    3m14.920s
-user    0m7.943s
-sys     0m0.811s
+real    3m2.342s
+user    0m8.505s
+sys     0m0.830s
 Deleted /results/tg-10GB-8-4-512
 Deleted /results/ts-10GB-8-4-512
 map.java.opts.max.heap=819
@@ -118,14 +157,15 @@ reduce.java.opts.max.heap=819
 job.maps=8
 map.memory.mb=1024
 job.reduces=4
+reduce.memory.mb=1024
 
-real    2m18.326s
-user    0m6.001s
-sys     0m0.799s
+real    2m34.632s
+user    0m6.174s
+sys     0m0.766s
 
-real    3m0.111s
-user    0m8.247s
-sys     0m0.852s
+real    3m1.552s
+user    0m8.180s
+sys     0m0.832s
 Deleted /results/tg-10GB-8-4-1024
 Deleted /results/ts-10GB-8-4-1024
 map.java.opts.max.heap=1638
@@ -133,14 +173,15 @@ reduce.java.opts.max.heap=1638
 job.maps=8
 map.memory.mb=2048
 job.reduces=4
+reduce.memory.mb=2048
 
-real    2m25.496s
-user    0m6.081s
-sys     0m0.783s
+real    2m2.614s
+user    0m5.919s
+sys     0m0.715s
 
-real    4m16.240s
-user    0m8.182s
-sys     0m0.849s
+real    3m56.634s
+user    0m8.572s
+sys     0m0.892s
 Deleted /results/tg-10GB-8-4-2048
 Deleted /results/ts-10GB-8-4-2048
 map.java.opts.max.heap=409
@@ -148,14 +189,15 @@ reduce.java.opts.max.heap=409
 job.maps=8
 map.memory.mb=512
 job.reduces=8
+reduce.memory.mb=512
 
-real    2m26.769s
-user    0m6.459s
-sys     0m0.751s
+real    2m9.677s
+user    0m6.160s
+sys     0m0.808s
 
-real    2m41.609s
-user    0m7.554s
-sys     0m0.838s
+real    2m49.452s
+user    0m7.739s
+sys     0m0.821s
 Deleted /results/tg-10GB-8-8-512
 Deleted /results/ts-10GB-8-8-512
 map.java.opts.max.heap=819
@@ -163,14 +205,15 @@ reduce.java.opts.max.heap=819
 job.maps=8
 map.memory.mb=1024
 job.reduces=8
+reduce.memory.mb=1024
 
-real    2m24.930s
-user    0m6.295s
-sys     0m0.892s
+real    2m12.865s
+user    0m6.333s
+sys     0m0.888s
 
-real    2m43.693s
-user    0m8.209s
-sys     0m0.820s
+real    2m54.602s
+user    0m8.222s
+sys     0m0.772s
 Deleted /results/tg-10GB-8-8-1024
 Deleted /results/ts-10GB-8-8-1024
 map.java.opts.max.heap=1638
@@ -178,15 +221,16 @@ reduce.java.opts.max.heap=1638
 job.maps=8
 map.memory.mb=2048
 job.reduces=8
+reduce.memory.mb=2048
 
-real    1m54.754s
-user    0m6.057s
-sys     0m0.790s
+real    1m50.207s
+user    0m6.141s
+sys     0m0.825s
 
-real    4m9.360s
-user    0m7.902s
-sys     0m0.899s
+real    3m29.590s
+user    0m8.621s
+sys     0m0.958s
 Deleted /results/tg-10GB-8-8-2048
 Deleted /results/ts-10GB-8-8-2048
-Testing loop ended on Wed May 10 01:25:56 UTC 2017
+Testing loop ended on Wed May 10 03:37:58 UTC 2017
 ```
