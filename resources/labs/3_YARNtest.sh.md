@@ -1,6 +1,6 @@
 
 YARNtest.sh
-<code>
+```
 #!/bin/sh
 # Confirm the path values given below correspond to your installation
 
@@ -54,4 +54,4 @@ done
 
 echo Testing loop ended on `date`
 
-<code>
+```
