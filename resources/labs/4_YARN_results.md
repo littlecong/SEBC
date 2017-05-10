@@ -1,4 +1,4 @@
-<pre>
+```
 [hdfs@ip-172-31-37-12 ~]$ ./YARNtest.sh 
 Testing loop started on Wed May 10 00:14:34 UTC 2017
 map.java.opts.max.heap=409
@@ -189,4 +189,4 @@ sys     0m0.899s
 Deleted /results/tg-10GB-8-8-2048
 Deleted /results/ts-10GB-8-8-2048
 Testing loop ended on Wed May 10 01:25:56 UTC 2017
-</pre>
+```
