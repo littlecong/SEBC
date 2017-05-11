@@ -472,10 +472,10 @@ Dependency Installed:
   libaio.x86_64 0:0.3.107-10.el6                                                                 perl-DBI.x86_64 0:1.609-4.el6                                                                
 
 Complete!
-</pre>
+```
 ###Download and copy the JDBC connector to all nodes.
 Upload mysql-connector-java-5.1.42.tar.gz to the cluster and expand it.
-<pre>
+```
 [root@ip-172-31-37-12 mysql-connector-java-5.1.42]# pwd
 /opt/mysql-connector-java-5.1.42
 [root@ip-172-31-37-12 mysql-connector-java-5.1.42]# ls
