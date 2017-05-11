@@ -1,5 +1,5 @@
 
-YARNtest.sh
+# YARNtest.sh
 ```
 #!/bin/sh
 # Confirm the path values given below correspond to your installation
