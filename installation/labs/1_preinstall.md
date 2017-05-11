@@ -1,36 +1,36 @@
 #System Configuration Checks
 ##Check vm.swappiness on all your nodes
-<pre>
+```
 [root@ip-172-31-37-12 ~]# sysctl vm.swappiness  
 vm.swappiness = 60  
 [root@ip-172-31-37-12 ~]# sysctl -w vm.swappiness=1  
 vm.swappiness = 1
-</pre>
+```
 
 
 ##Show the mount attributes of your volume(s)
-<code>
+```
 [root@ip-172-31-37-12 ~]# mount
-</code>
-<pre>  
+```
+```  
 /dev/xvde on / type ext4 (rw)  
 proc on /proc type proc (rw)  
 sysfs on /sys type sysfs (rw)  
 devpts on /dev/pts type devpts (rw,gid=5,mode=620)  
 tmpfs on /dev/shm type tmpfs (rw,rootcontext="system_u:object_r:tmpfs_t:s0")  
 none on /proc/sys/fs/binfmt_misc type binfmt_misc (rw)  
-</pre>
+```
 ###It is ext4 file system
-<code>
+```
 [root@ip-172-31-37-12 ~]# dumpe2fs -h /dev/xvde 2> /dev/null | awk -F ':' '{ if($1 == "Reserved block count") { rescnt=$2 } } { if($1 == "Block count") { blkcnt=$2 } } END { print "Reserved blocks: "(rescnt/blkcnt)*100"%" }'
-</code>
-<pre>  
+```
+```  
 Reserved blocks: 4.99997%  
-</pre>
-<code>
+```
+```
 [root@ip-172-31-37-12 ~]# dumpe2fs -h /dev/xvde 
-</code>
-<pre> 
+```
+``` 
 dumpe2fs 1.41.12 (17-May-2010)  
 Filesystem volume name:   centos_root  
 Last mounted on:          /  
@@ -80,22 +80,22 @@ Journal size:             128M
 Journal length:           32768  
 Journal sequence:         0x00000120  
 Journal start:            1  
-</pre>
+```
 ##Disable transparent hugepage support
-<pre>
+```
 [root@ip-172-31-37-12 mm]# pwd
 /sys/kernel/mm
 [root@ip-172-31-37-12 mm]# ls
 hugepages  ksm
 [root@ip-172-31-37-12 mm]# grep -i HugePages_Total /proc/meminfo 
 HugePages_Total:       0
-</pre>
+```
 So I think the THP has been disabled
 ##List your network interface configuration
-<code>
+```
 [root@ip-172-31-37-12 hugepages-2048kB]# ifconfig
-</code>
-<pre>
+```
+```
 eth0      Link encap:Ethernet  HWaddr 06:FA:94:5F:04:FC  
           inet addr:172.31.37.12  Bcast:172.31.47.255  Mask:255.255.240.0
           inet6 addr: fe80::4fa:94ff:fe5f:4fc/64 Scope:Link
@@ -114,10 +114,10 @@ lo        Link encap:Local Loopback
           TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
           collisions:0 txqueuelen:0 
           RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)
-</pre>
+```
 ##Show that forward and reverse host lookups are correctly resolved
 ip-172-31-37-12 is my Master Host, ip-172-31-40-228 is one of my Slave Hosts 
-<pre>
+```
 [root@ip-172-31-37-12 yum.repos.d]# hostname
 ip-172-31-37-12
 [root@ip-172-31-37-12 yum.repos.d]# nslookup ip-172-31-40-228
@@ -127,9 +127,9 @@ Address:	172.31.0.2#53
 Non-authoritative answer:
 Name:	ip-172-31-40-228.us-west-2.compute.internal
 Address: 172.31.40.228
-</pre>
+```
 ##Show the nscd service is running
-<pre>
+```
 [root@ip-172-31-37-12 etc]# service nscd status
 nscd: unrecognized service
 [root@ip-172-31-37-12 etc]# yum install nscd
@@ -214,9 +214,9 @@ Complete!
 [root@ip-172-31-37-12 etc]# chkconfig nscd on
 [root@ip-172-31-37-12 etc]# service nscd start
 Starting nscd:                                             [  OK  ]
-</pre>
+```
 ##Show the ntpd service is running
-<pre>
+```
 [root@ip-172-31-37-12 etc]# service ntpd status
 ntpd: unrecognized service
 [root@ip-172-31-37-12 etc]# yum install ntp ntpdate
@@ -272,11 +272,11 @@ Complete!
 [root@ip-172-31-37-12 etc]# chkconfig ntpd on
 [root@ip-172-31-37-12 etc]# service ntpd start
 Starting ntpd:                                             [  OK  ]
-</pre>
+```
 #MySQL/MariaDB Installation Lab
 ##Download and implement the official MySQL repo
 ###Enable the repo to install MySQL 5.5
-<pre>
+```
 [root@ip-172-31-37-12 yum.repos.d]# yum repolist
 Loaded plugins: fastestmirror, presto
 Loading mirror speeds from cached hostfile
@@ -294,9 +294,9 @@ mysql-tools-community                                                           
 mysql55-community                                                                           MySQL 5.5 Community Server                                                                     373
 updates                                                                                     CentOS-6 - Updates                                                                             252
 repolist: 7,478
-</pre>
+```
 ###Install the mysql package on all nodes
-<pre>
+```
 [root@ip-172-31-37-12 yum.repos.d]# yum install mysql
 Loaded plugins: fastestmirror, presto
 Loading mirror speeds from cached hostfile
@@ -401,9 +401,9 @@ Replaced:
   mysql.x86_64 0:5.1.73-8.el6_8                                                               mysql-libs.x86_64 0:5.1.73-8.el6_8                                                              
 
 Complete!
-</pre>
+```
 ###Install mysql-server on the my Master host(ip-172-31-37-12) and Slave1 host(ip-172-31-40-228)
-<pre>
+```
 [root@ip-172-31-40-228 yum.repos.d]# yum intall mysql-server
 Loaded plugins: fastestmirror, presto
 No such command: intall. Please use /usr/bin/yum --help
@@ -481,24 +481,24 @@ Upload mysql-connector-java-5.1.42.tar.gz to the cluster and expand it.
 [root@ip-172-31-37-12 mysql-connector-java-5.1.42]# ls
 build.xml  CHANGES  COPYING  docs  mysql-connector-java-5.1.42-bin.jar  README  README.txt  src
 [root@ip-172-31-37-12 mysql-connector-java-5.1.42]# 
-</pre>
+```
 ##Modified /etc/my.cnf on Master and Slave
 Master
-<pre>
+```
 log_bin=mysql-bin
 server-id=1
-</pre>
+```
 Slave
-<pre>
+```
 server-id=2
-</pre>
+```
 ##Start the mysqld service.
-<pre>
+```
 [root@ip-172-31-37-12 ~]# service mysqld start
 Starting mysqld:                                           [  OK  ]
-</pre>
+```
 ##Use /usr/bin/mysql_secure_installation secure mysql
-<pre>
+```
 [root@ip-172-31-37-12 log]# /usr/bin/mysql_secure_installation
 
 
@@ -569,9 +569,9 @@ Thanks for using MySQL!
 [root@ip-172-31-37-12 log]# service mysqld restart
 Stopping mysqld:                                           [  OK  ]
 Starting mysqld:                                           [  OK  ]
-</pre>
+```
 ##On the master MySQL node, grant replication privileges for your replica node:
-<pre>
+```
 [root@ip-172-31-37-12 log]# mysql -uroot -p
 Enter password: 
 Welcome to the MySQL monitor.  Commands end with ; or \g.
@@ -596,9 +596,9 @@ mysql> FLUSH TABLES WITH READ LOCK;
 Query OK, 0 rows affected (0.00 sec)
 
 mysql> 
-</pre>
+```
 ##In a second terminal session, log into the MySQL master and show its status:
-<pre>
+```
 [root@ip-172-31-37-12 ~]# mysql -uroot -p
 Enter password: 
 Welcome to the MySQL monitor.  Commands end with ; or \g.
@@ -623,15 +623,15 @@ mysql> SHOW MASTER STATUS;
 
 mysql> exit;
 Bye
-</pre>
+```
 Logout of the second session; remove the lock on the first
-<pre>
+```
 mysql> UNLOCK TABLES
     -> ;
 Query OK, 0 rows affected (0.00 sec)
-</pre>
+```
 ##Login to the replica server(My Slave1) and configure a connection to the master
-<pre>
+```
 [root@ip-172-31-40-228 yum.repos.d]# mysql -uroot -p
 Enter password: 
 Welcome to the MySQL monitor.  Commands end with ; or \g.
@@ -650,13 +650,14 @@ mysql> CHANGE MASTER TO MASTER_HOST='ip-172-31-37-12.us-west-2.compute.internal'
 Query OK, 0 rows affected (0.07 sec)
 
 mysql> 
-</pre>
+```
 ##Initiate slave operations on the replica
 close SELinux on all nodes
-<pre>
+```
 setenforce 0
-</pre>
-<pre>
+```
+
+```
 mysql> SHOW SLAVE STATUS \G
 *************************** 1. row ***************************
                Slave_IO_State: Waiting for master to send event
@@ -700,4 +701,4 @@ Master_SSL_Verify_Server_Cert: No
   Replicate_Ignore_Server_Ids: 
              Master_Server_Id: 1
 1 row in set (0.00 sec)
-</pre>
+```
