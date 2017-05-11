@@ -1,5 +1,5 @@
-#System Configuration Checks
-##Check vm.swappiness on all your nodes
+# System Configuration Checks
+## Check vm.swappiness on all your nodes
 ```
 [root@ip-172-31-37-12 ~]# sysctl vm.swappiness  
 vm.swappiness = 60  
@@ -8,7 +8,7 @@ vm.swappiness = 1
 ```
 
 
-##Show the mount attributes of your volume(s)
+## Show the mount attributes of your volume(s)
 ```
 [root@ip-172-31-37-12 ~]# mount
 ```
@@ -20,7 +20,7 @@ devpts on /dev/pts type devpts (rw,gid=5,mode=620)
 tmpfs on /dev/shm type tmpfs (rw,rootcontext="system_u:object_r:tmpfs_t:s0")  
 none on /proc/sys/fs/binfmt_misc type binfmt_misc (rw)  
 ```
-###It is ext4 file system
+### It is ext4 file system
 ```
 [root@ip-172-31-37-12 ~]# dumpe2fs -h /dev/xvde 2> /dev/null | awk -F ':' '{ if($1 == "Reserved block count") { rescnt=$2 } } { if($1 == "Block count") { blkcnt=$2 } } END { print "Reserved blocks: "(rescnt/blkcnt)*100"%" }'
 ```
@@ -81,7 +81,7 @@ Journal length:           32768
 Journal sequence:         0x00000120  
 Journal start:            1  
 ```
-##Disable transparent hugepage support
+## Disable transparent hugepage support
 ```
 [root@ip-172-31-37-12 mm]# pwd
 /sys/kernel/mm
@@ -91,7 +91,7 @@ hugepages  ksm
 HugePages_Total:       0
 ```
 So I think the THP has been disabled
-##List your network interface configuration
+## List your network interface configuration
 ```
 [root@ip-172-31-37-12 hugepages-2048kB]# ifconfig
 ```
@@ -115,7 +115,7 @@ lo        Link encap:Local Loopback
           collisions:0 txqueuelen:0 
           RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)
 ```
-##Show that forward and reverse host lookups are correctly resolved
+## Show that forward and reverse host lookups are correctly resolved
 ip-172-31-37-12 is my Master Host, ip-172-31-40-228 is one of my Slave Hosts 
 ```
 [root@ip-172-31-37-12 yum.repos.d]# hostname
@@ -128,7 +128,7 @@ Non-authoritative answer:
 Name:	ip-172-31-40-228.us-west-2.compute.internal
 Address: 172.31.40.228
 ```
-##Show the nscd service is running
+## Show the nscd service is running
 ```
 [root@ip-172-31-37-12 etc]# service nscd status
 nscd: unrecognized service
@@ -215,7 +215,7 @@ Complete!
 [root@ip-172-31-37-12 etc]# service nscd start
 Starting nscd:                                             [  OK  ]
 ```
-##Show the ntpd service is running
+## Show the ntpd service is running
 ```
 [root@ip-172-31-37-12 etc]# service ntpd status
 ntpd: unrecognized service
@@ -273,9 +273,9 @@ Complete!
 [root@ip-172-31-37-12 etc]# service ntpd start
 Starting ntpd:                                             [  OK  ]
 ```
-#MySQL/MariaDB Installation Lab
-##Download and implement the official MySQL repo
-###Enable the repo to install MySQL 5.5
+# MySQL/MariaDB Installation Lab
+## Download and implement the official MySQL repo
+### Enable the repo to install MySQL 5.5
 ```
 [root@ip-172-31-37-12 yum.repos.d]# yum repolist
 Loaded plugins: fastestmirror, presto
@@ -295,7 +295,7 @@ mysql55-community                                                               
 updates                                                                                     CentOS-6 - Updates                                                                             252
 repolist: 7,478
 ```
-###Install the mysql package on all nodes
+### Install the mysql package on all nodes
 ```
 [root@ip-172-31-37-12 yum.repos.d]# yum install mysql
 Loaded plugins: fastestmirror, presto
@@ -402,7 +402,7 @@ Replaced:
 
 Complete!
 ```
-###Install mysql-server on the my Master host(ip-172-31-37-12) and Slave1 host(ip-172-31-40-228)
+### Install mysql-server on the my Master host(ip-172-31-37-12) and Slave1 host(ip-172-31-40-228)
 ```
 [root@ip-172-31-40-228 yum.repos.d]# yum intall mysql-server
 Loaded plugins: fastestmirror, presto
@@ -473,7 +473,7 @@ Dependency Installed:
 
 Complete!
 ```
-###Download and copy the JDBC connector to all nodes.
+### Download and copy the JDBC connector to all nodes.
 Upload mysql-connector-java-5.1.42.tar.gz to the cluster and expand it.
 ```
 [root@ip-172-31-37-12 mysql-connector-java-5.1.42]# pwd
@@ -482,7 +482,7 @@ Upload mysql-connector-java-5.1.42.tar.gz to the cluster and expand it.
 build.xml  CHANGES  COPYING  docs  mysql-connector-java-5.1.42-bin.jar  README  README.txt  src
 [root@ip-172-31-37-12 mysql-connector-java-5.1.42]# 
 ```
-##Modified /etc/my.cnf on Master and Slave
+## Modified /etc/my.cnf on Master and Slave
 Master
 ```
 log_bin=mysql-bin
@@ -492,12 +492,12 @@ Slave
 ```
 server-id=2
 ```
-##Start the mysqld service.
+## Start the mysqld service.
 ```
 [root@ip-172-31-37-12 ~]# service mysqld start
 Starting mysqld:                                           [  OK  ]
 ```
-##Use /usr/bin/mysql_secure_installation secure mysql
+## Use /usr/bin/mysql_secure_installation secure mysql
 ```
 [root@ip-172-31-37-12 log]# /usr/bin/mysql_secure_installation
 
@@ -570,7 +570,7 @@ Thanks for using MySQL!
 Stopping mysqld:                                           [  OK  ]
 Starting mysqld:                                           [  OK  ]
 ```
-##On the master MySQL node, grant replication privileges for your replica node:
+## On the master MySQL node, grant replication privileges for your replica node:
 ```
 [root@ip-172-31-37-12 log]# mysql -uroot -p
 Enter password: 
@@ -597,7 +597,7 @@ Query OK, 0 rows affected (0.00 sec)
 
 mysql> 
 ```
-##In a second terminal session, log into the MySQL master and show its status:
+## In a second terminal session, log into the MySQL master and show its status:
 ```
 [root@ip-172-31-37-12 ~]# mysql -uroot -p
 Enter password: 
@@ -630,7 +630,7 @@ mysql> UNLOCK TABLES
     -> ;
 Query OK, 0 rows affected (0.00 sec)
 ```
-##Login to the replica server(My Slave1) and configure a connection to the master
+## Login to the replica server(My Slave1) and configure a connection to the master
 ```
 [root@ip-172-31-40-228 yum.repos.d]# mysql -uroot -p
 Enter password: 
@@ -651,7 +651,7 @@ Query OK, 0 rows affected (0.07 sec)
 
 mysql> 
 ```
-##Initiate slave operations on the replica
+## Initiate slave operations on the replica
 close SELinux on all nodes
 ```
 setenforce 0
