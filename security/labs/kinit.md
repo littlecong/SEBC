@@ -1,5 +1,5 @@
-The kinit command you use to authenticate your test user
-My test user is hdfs who start NameNode
+The kinit command you use to authenticate your test user  
+My test user is hdfs who start NameNode  
 ```
 cd /var/run/cloudera-scm-agent/process/390-hdfs-NAMENODE
 kinit -k -t hdfs.keytab hdfs/ip-172-31-37-12.us-west-2.compute.internal@CONG.COM

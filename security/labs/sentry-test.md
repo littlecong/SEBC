@@ -1,3 +1,4 @@
+# before grant 
 ```
 beeline> !connect jdbc:hive2://ip-172-31-37-146:10000/default;principal=hive/ip-172-31-37-146.us-west-2.compute.internal@CONG.COM
 scan complete in 2ms
@@ -21,7 +22,7 @@ INFO  : OK
 No rows selected (2.687 seconds)
 ```
 
-#kinit as george, then login to beeline
+# kinit as george, then login to beeline
 ```
 [root@ip-172-31-37-12 process]# kinit george
 Password for george@CONG.COM: 
