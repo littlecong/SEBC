@@ -7,8 +7,8 @@
 dns ec2-34-210-128-161.us-west-2.compute.amazonaws.com
 internal ip 172.31.43.100
 
-dns ec2-34-210-128-161.us-west-2.compute.amazonaws.com
-internal ip 172-31-43-100
+dns ec2-54-70-44-108.us-west-2.compute.amazonaws.com
+internal ip 172-31-37-248
 
 dns ec2-52-88-37-2.us-west-2.compute.amazonaws.com
 internal ip 172-31-38-25
