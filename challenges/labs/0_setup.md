@@ -49,3 +49,13 @@ extras                                                                          
 updates                                                                                CentOS-6 - Updates                                                                                  270
 repolist: 7,040
 ```
+
+# List entry of passwd and group
+```
+[root@ip-172-31-43-100 ~]# grep -E 'zhou|chen' /etc/passwd
+zhou:x:2800:1500::/home/zhou:/bin/bash
+chen:x:2900:1400::/home/chen:/bin/bash
+[root@ip-172-31-43-100 ~]# grep -E 'shanghai|beijing' /etc/group
+shanghai:x:1400:
+beijing:x:1500:
+```
